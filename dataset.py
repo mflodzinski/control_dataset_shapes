@@ -9,7 +9,11 @@ train_colors = {
     'square': 'green',
     'triangle': 'blue'
 }
-test_colors = ['orange', 'purple', 'yellow', 'brown', 'pink', 'cyan']
+test_colors = {
+    'circle': ['green', 'blue'],
+    'square': ['red', 'blue'],
+    'triangle': ['red', 'green']
+}
 
 base = 'shape_texture_dataset'
 train = os.path.join(base, 'train')
@@ -51,7 +55,7 @@ for shape in shapes:
 for shape in shapes:
     folder = os.path.join(test, shape)
     os.makedirs(folder, exist_ok=True)
-    for i in range(50):
-        c = random.choice([c for c in test_colors if c != train_colors[shape]])
-        img = draw(shape, c)
-        img.save(os.path.join(folder, f'{shape}_test_{i}.png'))
+    for color in test_colors[shape]:
+        for i in range(25):
+            img = draw(shape, color)
+            img.save(os.path.join(folder, f'{shape}_{color}_{i}.png'))
